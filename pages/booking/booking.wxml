@@ -1,0 +1,42 @@
+<view class="container" wx:if="{{tour}}">
+  <view class="card summary">
+    <view class="tour-title">{{tour.title}}</view>
+    <view class="tour-meta">出发地：{{tour.city}} ｜ 单价：¥{{tour.price}} / 人</view>
+  </view>
+
+  <view class="card form-card">
+    <view class="form-item">
+      <text class="label">出发日期</text>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="value">{{date}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="label">出行人数</text>
+      <input class="input" type="number" value="{{travelers}}" bindinput="onTravelersChange" />
+    </view>
+
+    <view class="form-item">
+      <text class="label">联系人</text>
+      <input class="input" placeholder="请输入姓名" bindinput="onNameInput" />
+    </view>
+
+    <view class="form-item">
+      <text class="label">手机号</text>
+      <input class="input" type="number" maxlength="11" placeholder="请输入手机号" bindinput="onPhoneInput" />
+    </view>
+
+    <view class="form-item">
+      <text class="label">备注</text>
+      <textarea class="textarea" maxlength="80" placeholder="饮食偏好、儿童需求等（可选）" bindinput="onNotesInput"></textarea>
+    </view>
+  </view>
+
+  <view class="card amount-box">
+    <text>预估总价：</text>
+    <text class="amount">¥{{tour.price * travelers}}</text>
+  </view>
+
+  <button class="btn-primary submit-btn" bindtap="submitBooking">提交预定</button>
+</view>

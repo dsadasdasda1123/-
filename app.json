@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/tour/tour",
+    "pages/booking/booking"
+  ],
+  "window": {
+    "navigationBarTitleText": "旅游团预定",
+    "navigationBarBackgroundColor": "#2f6fed",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f7fb",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
