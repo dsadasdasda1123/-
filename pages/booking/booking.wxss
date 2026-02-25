@@ -1,0 +1,53 @@
+.summary,
+.form-card,
+.amount-box {
+  padding: 24rpx;
+}
+
+.tour-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+
+.tour-meta {
+  color: #6b7280;
+}
+
+.form-item {
+  margin-bottom: 22rpx;
+}
+
+.label {
+  display: block;
+  margin-bottom: 10rpx;
+  color: #4b5563;
+}
+
+.input,
+.value,
+.textarea {
+  background: #f4f7fb;
+  border-radius: 14rpx;
+  padding: 16rpx;
+}
+
+.textarea {
+  min-height: 150rpx;
+}
+
+.amount-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
+}
+
+.amount {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.submit-btn {
+  margin-top: 24rpx;
+}

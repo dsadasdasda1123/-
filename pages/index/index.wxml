@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="section-title">精选旅游团</view>
+
+  <view class="search-box card">
+    <input
+      class="search-input"
+      placeholder="搜索目的地、关键词"
+      value="{{keyword}}"
+      bindinput="onKeywordInput"
+    />
+  </view>
+
+  <block wx:if="{{filteredTours.length}}">
+    <view class="card tour-card" wx:for="{{filteredTours}}" wx:key="id" data-id="{{item.id}}" bindtap="goDetail">
+      <image class="cover" src="{{item.cover}}" mode="aspectFill"></image>
+      <view class="content">
+        <view class="title">{{item.title}}</view>
+        <view class="meta">{{item.city}} · {{item.duration}} · {{item.startDate}} 出发</view>
+        <view class="footer">
+          <text class="price">¥{{item.price}} 起</text>
+          <text class="seats">余位 {{item.seatsLeft}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view class="empty" wx:else>没有找到匹配的旅游团，请更换关键词。</view>
+</view>

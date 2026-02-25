@@ -1,0 +1,25 @@
+<view class="container" wx:if="{{tour}}">
+  <view class="card hero">
+    <image class="hero-cover" src="{{tour.cover}}" mode="aspectFill"></image>
+    <view class="hero-content">
+      <view class="hero-title">{{tour.title}}</view>
+      <view class="hero-meta">{{tour.city}} · {{tour.duration}} · {{tour.startDate}}</view>
+      <view class="hero-price">¥{{tour.price}} / 人</view>
+    </view>
+  </view>
+
+  <view class="card block">
+    <view class="block-title">行程亮点</view>
+    <view class="tag-list">
+      <text class="tag" wx:for="{{tour.highlights}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="card block">
+    <view class="block-title">线路简介</view>
+    <view class="intro">{{tour.intro}}</view>
+    <view class="seat-info">当前余位：{{tour.seatsLeft}}</view>
+  </view>
+
+  <button class="btn-primary booking-btn" bindtap="goBooking">立即预定</button>
+</view>
