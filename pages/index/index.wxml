@@ -1,0 +1,51 @@
+<view class="container">
+  <view class="header card">
+    <view class="title">羊了个羊 · 轻量挑战</view>
+    <view class="sub">{{message}}</view>
+    <view class="stats">
+      <text>分数：{{score}}</text>
+      <text>剩余卡片：{{remain}}</text>
+      <text>槽位：{{slotTiles.length}} / 7</text>
+    </view>
+  </view>
+
+  <view class="board card">
+    <view class="grid">
+      <block wx:for="{{boardCells}}" wx:key="key">
+        <view class="cell">
+          <button
+            wx:if="{{item.top}}"
+            class="tile"
+            bindtap="handlePick"
+            data-id="{{item.top.id}}"
+          >
+            <text class="emoji">{{item.top.type}}</text>
+            <text class="depth" wx:if="{{item.depth > 1}}">x{{item.depth}}</text>
+          </button>
+          <view wx:else class="empty"></view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="slot card">
+    <view class="slot-title">暂存槽（凑齐 3 个自动消除）</view>
+    <view class="slot-row">
+      <block wx:for="{{slotTiles}}" wx:key="id">
+        <view class="slot-item">{{item.type}}</view>
+      </block>
+      <block wx:for="{{7 - slotTiles.length}}" wx:key="*this">
+        <view class="slot-item ghost">+</view>
+      </block>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button class="btn primary" bindtap="handleRestart">重新开始</button>
+    <button class="btn" bindtap="handleUndo" disabled="{{usedUndo || status !== 'playing'}}">撤回一步（1次）</button>
+  </view>
+
+  <view class="status {{status}}" wx:if="{{status !== 'playing'}}">
+    {{status === 'win' ? '🎉 通关成功！' : '💥 挑战失败'}}
+  </view>
+</view>

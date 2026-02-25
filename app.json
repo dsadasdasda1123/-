@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "羊了个羊 · 轻量版",
+    "navigationBarBackgroundColor": "#6fcf97",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f8f5",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
