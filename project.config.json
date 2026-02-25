@@ -1,0 +1,28 @@
+{
+  "description": "羊了个羊风格三消小游戏",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "bundle": false,
+    "es6": true,
+    "postcss": false,
+    "minified": false,
+    "enhance": true,
+    "showShadowRootInWxmlPanel": true,
+    "packNpmManually": false,
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "condition": false,
+    "swc": false
+  },
+  "compileType": "game",
+  "libVersion": "3.3.5",
+  "appid": "touristappid",
+  "projectname": "yang-match-mini-game",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {}
+}
