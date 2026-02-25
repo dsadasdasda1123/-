@@ -1,0 +1,31 @@
+<view wx:if="{{line}}" class="container">
+  <view class="card order-info">
+    <view class="title">{{line.title}}</view>
+    <view>出发日期：{{line.priceCalendar[selectedDateIndex].date}}</view>
+    <view>成人价：<text class="price">¥{{line.priceCalendar[selectedDateIndex].adult}}</text></view>
+  </view>
+
+  <view class="section-title">报名信息</view>
+  <view class="card form">
+    <input placeholder="旅客姓名" data-field="name" bindinput="onInput" />
+    <input placeholder="身份证号（用于保险）" data-field="idCard" bindinput="onInput" />
+    <input placeholder="手机号" type="number" maxlength="11" data-field="mobile" bindinput="onInput" />
+  </view>
+
+  <view class="section-title">优惠券抵扣</view>
+  <view class="card coupon">
+    <view wx:if="{{selectedCoupon}}">已自动匹配：{{selectedCoupon.name}}，减 ¥{{couponDiscount}}</view>
+    <view wx:else>暂无可用优惠券</view>
+  </view>
+
+  <view class="section-title">电子合同（进阶）</view>
+  <view class="card contract">
+    <view>{{contractSigned ? '已签署电子合同' : '支付前后可在线签署电子合同（此处为模拟流程）'}}</view>
+    <button size="mini" bindtap="signContract" wx:if="{{!contractSigned}}">立即签署</button>
+  </view>
+
+  <view class="card pay-bar">
+    <view>应付金额：<text class="price">¥{{finalPrice}}</text></view>
+    <button type="primary" bindtap="submitOrder">微信支付</button>
+  </view>
+</view>

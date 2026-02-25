@@ -1,0 +1,14 @@
+.page-wrap { padding-bottom: 130rpx; }
+.gallery { height: 420rpx; }
+.gallery image { width: 100%; height: 100%; }
+.intro { padding: 18rpx; }
+.title { font-size: 34rpx; font-weight: 700; line-height: 1.4; }
+.sub { margin: 10rpx 0; color: #666; }
+.quote { padding: 16rpx; }
+.picker { padding: 14rpx; border-radius: 12rpx; background: #f5f6f9; margin-bottom: 16rpx; }
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10rpx; }
+.spec-item { background: #fafafa; border-radius: 12rpx; padding: 12rpx; display: flex; flex-direction: column; gap: 6rpx; }
+.list-card { padding: 16rpx; }
+.list-item { line-height: 1.8; border-bottom: 1rpx solid #f0f0f0; padding: 8rpx 0; }
+.h4 { margin-top: 10rpx; font-weight: 600; }
+.bottom-bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 16rpx 24rpx; background: #fff; display: grid; grid-template-columns: 1fr 1fr; gap: 16rpx; box-shadow: 0 -8rpx 30rpx rgba(0,0,0,.06); }

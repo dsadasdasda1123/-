@@ -1,0 +1,10 @@
+.search-head { padding: 16rpx; margin-bottom: 20rpx; }
+.search-head input { background: #f5f6fa; border-radius: 12rpx; padding: 14rpx; margin-bottom: 10rpx; }
+.search-head text { color: #888; font-size: 24rpx; }
+.result-list { display: flex; flex-direction: column; gap: 16rpx; }
+.result-item { display: flex; overflow: hidden; }
+.result-item image { width: 220rpx; height: 200rpx; }
+.meta { padding: 14rpx; flex: 1; }
+.title { font-weight: 600; line-height: 1.4; }
+.desc { margin: 12rpx 0; color: #666; font-size: 24rpx; }
+.empty { margin-top: 80rpx; text-align: center; color: #888; }

@@ -1,0 +1,12 @@
+.status-tabs { white-space: nowrap; margin-bottom: 16rpx; }
+.tab-list { display: flex; gap: 12rpx; }
+.tab { padding: 10rpx 22rpx; background: #fff; border-radius: 999rpx; color: #666; }
+.tab.on { background: #1aad19; color: #fff; }
+.order-list { display: flex; flex-direction: column; gap: 16rpx; }
+.order-item { padding: 16rpx; }
+.row { display: flex; }
+.between { justify-content: space-between; }
+.status { color: #1aad19; }
+.meta { margin-top: 8rpx; color: #666; font-size: 24rpx; }
+.actions { margin-top: 12rpx; display: flex; gap: 12rpx; }
+.comment { margin-top: 10rpx; background: #f6fbf6; border-radius: 10rpx; padding: 10rpx; color: #2f6f35; }

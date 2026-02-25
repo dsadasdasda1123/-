@@ -1,0 +1,25 @@
+.search-bar {
+  padding: 16rpx;
+  display: flex;
+  gap: 16rpx;
+  align-items: center;
+}
+.search-bar input { flex: 1; background: #f3f4f7; border-radius: 12rpx; padding: 12rpx; }
+.banner-swiper { height: 320rpx; margin-top: 20rpx; overflow: hidden; position: relative; }
+.banner-image { width: 100%; height: 100%; }
+.banner-title { position: absolute; left: 20rpx; bottom: 20rpx; color: #fff; background: rgba(0, 0, 0, .4); padding: 8rpx 14rpx; border-radius: 10rpx; }
+.category-grid { display: grid; grid-template-columns: repeat(4, 1fr); padding: 16rpx; margin-bottom: 10rpx; }
+.category-item { text-align: center; padding: 16rpx 0; }
+.emoji { font-size: 42rpx; margin-bottom: 8rpx; }
+.flash-scroll { white-space: nowrap; }
+.flash-list { display: flex; gap: 16rpx; }
+.flash-item { width: 420rpx; overflow: hidden; }
+.flash-item image { width: 100%; height: 200rpx; }
+.flash-content { padding: 14rpx; }
+.line1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.destination-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; }
+.dest-item { overflow: hidden; }
+.dest-item image { width: 100%; height: 180rpx; }
+.dest-content { padding: 12rpx; }
+.dest-city { font-weight: 600; margin-bottom: 6rpx; }
+.dest-desc { color: #666; font-size: 24rpx; line-height: 1.4; }

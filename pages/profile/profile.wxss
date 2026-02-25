@@ -1,0 +1,9 @@
+.user-box { display: flex; gap: 14rpx; padding: 20rpx; align-items: center; }
+.avatar { width: 88rpx; height: 88rpx; border-radius: 50%; background: #f1f2f5; display: flex; align-items: center; justify-content: center; font-size: 42rpx; }
+.name { font-weight: 700; }
+.mobile { margin-top: 6rpx; color: #777; font-size: 24rpx; }
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); padding: 16rpx; }
+.stat-item { text-align: center; }
+.num { font-size: 34rpx; font-weight: 700; color: #1aad19; }
+.menu { padding: 0 16rpx; }
+.menu-item { padding: 22rpx 0; border-bottom: 1rpx solid #f0f0f0; }

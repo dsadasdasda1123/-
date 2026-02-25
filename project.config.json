@@ -1,0 +1,24 @@
+{
+  "description": "旅行社示例小程序",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.3.5",
+  "appid": "tour-demo-appid",
+  "projectname": "tour-miniprogram-demo",
+  "simulatorType": "wechat",
+  "condition": {}
+}

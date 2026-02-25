@@ -1,0 +1,51 @@
+<view wx:if="{{line}}" class="page-wrap">
+  <swiper class="gallery" indicator-dots autoplay circular>
+    <block wx:for="{{line.gallery}}" wx:key="*this">
+      <swiper-item><image src="{{item}}" mode="aspectFill" /></swiper-item>
+    </block>
+  </swiper>
+
+  <view class="container">
+    <view class="card intro">
+      <view class="title">{{line.title}}</view>
+      <view class="sub">{{line.duration}} · {{line.promo}}</view>
+      <view class="price">¥{{line.priceCalendar[selectedDateIndex].adult}} 起</view>
+    </view>
+
+    <view class="section-title">动态报价</view>
+    <view class="card quote">
+      <picker mode="selector" range="{{line.priceCalendar}}" range-key="date" bindchange="pickDate">
+        <view class="picker">出发日期：{{line.priceCalendar[selectedDateIndex].date}}（点击切换）</view>
+      </picker>
+      <view class="spec-grid">
+        <view wx:for="{{specs}}" wx:key="key" class="spec-item">
+          <text>{{item.label}}</text>
+          <text class="price">¥{{line.priceCalendar[selectedDateIndex][item.key]}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-title">详细行程</view>
+    <view class="card list-card">
+      <view wx:for="{{line.itinerary}}" wx:key="*this" class="list-item">{{item}}</view>
+    </view>
+
+    <view class="section-title">费用说明</view>
+    <view class="card list-card">
+      <view class="h4">费用包含</view>
+      <view wx:for="{{line.feeInclude}}" wx:key="*this" class="list-item">· {{item}}</view>
+      <view class="h4">费用不含</view>
+      <view wx:for="{{line.feeExclude}}" wx:key="*this" class="list-item">· {{item}}</view>
+    </view>
+
+    <view class="section-title">预订须知</view>
+    <view class="card list-card">
+      <view wx:for="{{line.bookingNotice}}" wx:key="*this" class="list-item">· {{item}}</view>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <button open-type="contact" plain>在线咨询</button>
+    <button type="primary" bindtap="goBooking">立即预订</button>
+  </view>
+</view>
