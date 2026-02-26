@@ -45,6 +45,16 @@ public class CodeGenerationService {
             generated.add(write(outputRoot.resolve(packagePath).resolve("service").resolve(tableMeta.getClassName() + "Service.java"),
                     renderer.renderService(request.getBasePackage(), tableMeta)));
 
+            generated.add(write(outputRoot.resolve(packagePath).resolve("service").resolve("impl")
+                            .resolve(tableMeta.getClassName() + "ServiceImpl.java"),
+                    renderer.renderServiceImpl(request.getBasePackage(), tableMeta, request.getGenerationMode())));
+
+            if (request.getGenerationMode().name().equals("MYBATIS_PLUS")) {
+                generated.add(write(outputRoot.resolve("resources").resolve("mapper")
+                                .resolve(tableMeta.getClassName() + "Mapper.xml"),
+                        renderer.renderMapperXml(request.getBasePackage(), tableMeta)));
+            }
+
             generated.add(write(outputRoot.resolve(packagePath).resolve("controller").resolve(tableMeta.getClassName() + "Controller.java"),
                     renderer.renderController(request.getBasePackage(), tableMeta)));
         }
@@ -57,7 +67,7 @@ public class CodeGenerationService {
 
     private String write(Path path, String content) throws IOException {
         Files.createDirectories(path.getParent());
-        Files.writeString(path, content, StandardCharsets.UTF_8);
+        Files.write(path, content.getBytes(StandardCharsets.UTF_8));
         return path.toAbsolutePath().toString();
     }
 }

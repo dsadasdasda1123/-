@@ -69,10 +69,11 @@ public class CodeTemplateRenderer {
         }
         return "package " + basePackage + ".mapper;\n\n" +
                 "import " + basePackage + ".entity." + tableMeta.getClassName() + ";\n" +
-                "import com.baomidou.mybatisplus.core.mapper.BaseMapper;\n" +
-                "import org.apache.ibatis.annotations.Mapper;\n\n" +
-                "@Mapper\n" +
-                "public interface " + tableMeta.getClassName() + "Mapper extends BaseMapper<" + tableMeta.getClassName() + "> {\n" +
+                "import org.apache.ibatis.annotations.Mapper;\n" +
+                "\n@Mapper\n" +
+                "public interface " + tableMeta.getClassName() + "Mapper {\n" +
+                "    int insert(" + tableMeta.getClassName() + " entity);\n" +
+                "    java.util.List<" + tableMeta.getClassName() + "> findAll();\n" +
                 "}\n";
     }
 
@@ -84,6 +85,92 @@ public class CodeTemplateRenderer {
                 "    " + tableMeta.getClassName() + " save(" + tableMeta.getClassName() + " entity);\n" +
                 "    List<" + tableMeta.getClassName() + "> findAll();\n" +
                 "}\n";
+    }
+
+    public String renderServiceImpl(String basePackage, TableMeta tableMeta, GenerationMode mode) {
+        String className = tableMeta.getClassName();
+        if (mode == GenerationMode.JPA) {
+            return "package " + basePackage + ".service.impl;\n\n" +
+                    "import " + basePackage + ".entity." + className + ";\n" +
+                    "import " + basePackage + ".repository." + className + "Repository;\n" +
+                    "import " + basePackage + ".service." + className + "Service;\n" +
+                    "import org.springframework.stereotype.Service;\n" +
+                    "import java.util.List;\n\n" +
+                    "@Service\n" +
+                    "public class " + className + "ServiceImpl implements " + className + "Service {\n\n" +
+                    "    private final " + className + "Repository repository;\n\n" +
+                    "    public " + className + "ServiceImpl(" + className + "Repository repository) {\n" +
+                    "        this.repository = repository;\n" +
+                    "    }\n\n" +
+                    "    @Override\n" +
+                    "    public " + className + " save(" + className + " entity) {\n" +
+                    "        return repository.save(entity);\n" +
+                    "    }\n\n" +
+                    "    @Override\n" +
+                    "    public List<" + className + "> findAll() {\n" +
+                    "        return repository.findAll();\n" +
+                    "    }\n" +
+                    "}\n";
+        }
+
+        return "package " + basePackage + ".service.impl;\n\n" +
+                "import " + basePackage + ".entity." + className + ";\n" +
+                "import " + basePackage + ".mapper." + className + "Mapper;\n" +
+                "import " + basePackage + ".service." + className + "Service;\n" +
+                "import org.springframework.stereotype.Service;\n" +
+                "import java.util.List;\n\n" +
+                "@Service\n" +
+                "public class " + className + "ServiceImpl implements " + className + "Service {\n\n" +
+                "    private final " + className + "Mapper mapper;\n\n" +
+                "    public " + className + "ServiceImpl(" + className + "Mapper mapper) {\n" +
+                "        this.mapper = mapper;\n" +
+                "    }\n\n" +
+                "    @Override\n" +
+                "    public " + className + " save(" + className + " entity) {\n" +
+                "        mapper.insert(entity);\n" +
+                "        return entity;\n" +
+                "    }\n\n" +
+                "    @Override\n" +
+                "    public List<" + className + "> findAll() {\n" +
+                "        return mapper.findAll();\n" +
+                "    }\n" +
+                "}\n";
+    }
+
+    public String renderMapperXml(String basePackage, TableMeta tableMeta) {
+        String entityClass = basePackage + ".entity." + tableMeta.getClassName();
+        String mapperClass = basePackage + ".mapper." + tableMeta.getClassName() + "Mapper";
+
+        StringBuilder columns = new StringBuilder();
+        StringBuilder values = new StringBuilder();
+        StringBuilder resultMap = new StringBuilder();
+        for (int i = 0; i < tableMeta.getColumns().size(); i++) {
+            ColumnMeta c = tableMeta.getColumns().get(i);
+            if (i > 0) {
+                columns.append(", ");
+                values.append(", ");
+            }
+            columns.append(c.getColumnName());
+            values.append("#{").append(c.getFieldName()).append("}");
+            String tag = c.isPrimaryKey() ? "id" : "result";
+            resultMap.append("    <").append(tag).append(" column=\"").append(c.getColumnName())
+                    .append("\" property=\"").append(c.getFieldName()).append("\"/>\n");
+        }
+
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+                "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n" +
+                "<mapper namespace=\"" + mapperClass + "\">\n\n" +
+                "  <resultMap id=\"BaseResultMap\" type=\"" + entityClass + "\">\n" +
+                resultMap +
+                "  </resultMap>\n\n" +
+                "  <insert id=\"insert\" parameterType=\"" + entityClass + "\">\n" +
+                "    INSERT INTO " + tableMeta.getTableName() + " (" + columns + ")\n" +
+                "    VALUES (" + values + ")\n" +
+                "  </insert>\n\n" +
+                "  <select id=\"findAll\" resultMap=\"BaseResultMap\">\n" +
+                "    SELECT " + columns + " FROM " + tableMeta.getTableName() + "\n" +
+                "  </select>\n\n" +
+                "</mapper>\n";
     }
 
     public String renderController(String basePackage, TableMeta tableMeta) {

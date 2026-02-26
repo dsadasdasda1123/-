@@ -11,7 +11,9 @@ Auto-Entity Generator 是一个基于 Spring Boot 的代码生成工具。通过
   - Entity（支持 JPA 或 MyBatis-Plus 注解）
   - Repository / Mapper
   - Service
+  - ServiceImpl
   - Controller
+  - Mapper XML（MyBatis 模式）
 - 内置 Lombok 注解：`@Data`、`@NoArgsConstructor`、`@AllArgsConstructor`
 
 ## 快速启动
@@ -49,6 +51,8 @@ mvn spring-boot:run
 - `generator`: 代码模板渲染
 - `service`: 生成流程编排与文件写出
 - `controller`: 对外 REST API
+
+当 `generationMode=MYBATIS_PLUS` 时，会额外生成 `resources/mapper/*Mapper.xml`。
 - `util`: 命名转换与类型映射
 
 ## 后续可扩展方向
