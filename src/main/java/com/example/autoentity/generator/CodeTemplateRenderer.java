@@ -21,7 +21,7 @@ public class CodeTemplateRenderer {
         appendTypeImports(sb, tableMeta.getColumns());
 
         if (mode == GenerationMode.JPA) {
-            sb.append("import jakarta.persistence.*;\n");
+            sb.append("import javax.persistence.*;\n");
         } else {
             sb.append("import com.baomidou.mybatisplus.annotation.*;\n");
         }
@@ -117,7 +117,7 @@ public class CodeTemplateRenderer {
                 .filter(type -> type.contains("."))
                 .distinct()
                 .sorted()
-                .toList();
+                .collect(java.util.stream.Collectors.toList());
 
         for (String i : imports) {
             sb.append("import ").append(i).append(";\n");

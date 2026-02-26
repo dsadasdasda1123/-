@@ -29,7 +29,7 @@ public class CodeGenerationService {
         List<TableMeta> tableMetaList = extractor.extract(request);
         List<String> generated = new ArrayList<>();
 
-        Path outputRoot = Path.of(request.getOutputDir());
+        Path outputRoot = java.nio.file.Paths.get(request.getOutputDir());
         String packagePath = request.getBasePackage().replace('.', '/');
 
         for (TableMeta tableMeta : tableMetaList) {
