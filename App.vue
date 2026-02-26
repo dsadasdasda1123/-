@@ -1,4 +1,5 @@
-App({
+<script>
+export default {
   globalData: {
     coupons: [
       { id: 'coupon-100', name: '满1000减100', threshold: 1000, discount: 100 },
@@ -6,4 +7,9 @@ App({
     ],
     orders: []
   }
-});
+}
+</script>
+
+<style lang="scss">
+@import './uni.scss';
+</style>

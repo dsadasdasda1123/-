@@ -1,4 +1,4 @@
-const tours = [
+export const tours = [
   {
     id: 'line-001',
     title: '张家界天门山·凤凰古城 5日跟团游',
@@ -14,13 +14,7 @@ const tours = [
     duration: '5天4晚',
     promo: '立减200',
     description: '玻璃栈道、苗寨篝火晚会，全程品质酒店。',
-    itinerary: [
-      'D1 抵达张家界-接站入住',
-      'D2 天游峰-袁家界-黄石寨',
-      'D3 天门山国家森林公园',
-      'D4 凤凰古城自由活动',
-      'D5 返程送站'
-    ],
+    itinerary: ['D1 抵达张家界-接站入住', 'D2 天游峰-袁家界-黄石寨', 'D3 天门山国家森林公园', 'D4 凤凰古城自由活动', 'D5 返程送站'],
     priceCalendar: [
       { date: '2026-03-01', adult: 2199, child: 1699, roomDiff: 500 },
       { date: '2026-03-05', adult: 2399, child: 1799, roomDiff: 580 },
@@ -37,9 +31,7 @@ const tours = [
     tag: '私家团',
     city: '成都',
     cover: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=60',
-    gallery: [
-      'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=60'
-    ],
+    gallery: ['https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=60'],
     categories: ['私家团', '定制游'],
     destination: '四川',
     duration: '6天5晚',
@@ -61,9 +53,7 @@ const tours = [
     tag: '周边游',
     city: '珠海',
     cover: 'https://images.unsplash.com/photo-1567443024551-f3e3cc2be870?auto=format&fit=crop&w=1200&q=60',
-    gallery: [
-      'https://images.unsplash.com/photo-1567443024551-f3e3cc2be870?auto=format&fit=crop&w=1200&q=60'
-    ],
+    gallery: ['https://images.unsplash.com/photo-1567443024551-f3e3cc2be870?auto=format&fit=crop&w=1200&q=60'],
     categories: ['周边游', '特惠抢购'],
     destination: '广东',
     duration: '3天2晚',
@@ -79,18 +69,12 @@ const tours = [
     bookingNotice: ['提前2天预订', '节假日价格浮动'],
     flashSale: true
   }
-];
+]
 
-const categories = ['跟团游', '私家团', '周边游', '定制游'];
+export const categories = ['跟团游', '私家团', '周边游', '定制游']
 
-const banners = [
+export const banners = [
   { id: 'b1', image: tours[0].cover, title: '春季赏花线路热卖中' },
   { id: 'b2', image: tours[1].cover, title: '私家团专享服务升级' },
   { id: 'b3', image: tours[2].cover, title: '周边亲子游限时折扣' }
-];
-
-module.exports = {
-  tours,
-  categories,
-  banners
-};
+]
