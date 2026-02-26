@@ -18,7 +18,8 @@ public class CodeTemplateRenderer {
         sb.append("import lombok.NoArgsConstructor;\n");
         sb.append("import lombok.AllArgsConstructor;\n");
 
-        appendTypeImports(sb, tableMeta.getColumns());
+        List<ColumnMeta> columns = distinctColumns(tableMeta.getColumns());
+        appendTypeImports(sb, columns);
 
         if (mode == GenerationMode.JPA) {
             sb.append("import javax.persistence.*;\n");
@@ -36,7 +37,7 @@ public class CodeTemplateRenderer {
 
         sb.append("public class ").append(tableMeta.getClassName()).append(" {\n\n");
 
-        for (ColumnMeta column : tableMeta.getColumns()) {
+        for (ColumnMeta column : columns) {
             if (column.isPrimaryKey()) {
                 sb.append(mode == GenerationMode.JPA ? "    @Id\n" : "    @TableId\n");
             }
@@ -138,8 +139,9 @@ public class CodeTemplateRenderer {
         StringBuilder columns = new StringBuilder();
         StringBuilder values = new StringBuilder();
         StringBuilder resultMap = new StringBuilder();
-        for (int i = 0; i < tableMeta.getColumns().size(); i++) {
-            ColumnMeta c = tableMeta.getColumns().get(i);
+        List<ColumnMeta> columnsMeta = distinctColumns(tableMeta.getColumns());
+        for (int i = 0; i < columnsMeta.size(); i++) {
+            ColumnMeta c = columnsMeta.get(i);
             if (i > 0) {
                 columns.append(", ");
                 values.append(", ");
@@ -215,6 +217,17 @@ public class CodeTemplateRenderer {
                 "        return service.findAll();\n" +
                 "    }\n" +
                 "}\n";
+    }
+
+    private List<ColumnMeta> distinctColumns(List<ColumnMeta> columns) {
+        java.util.LinkedHashMap<String, ColumnMeta> unique = new java.util.LinkedHashMap<String, ColumnMeta>();
+        for (ColumnMeta column : columns) {
+            String key = column.getFieldName();
+            if (!unique.containsKey(key)) {
+                unique.put(key, column);
+            }
+        }
+        return new java.util.ArrayList<ColumnMeta>(unique.values());
     }
 
     private void appendTypeImports(StringBuilder sb, List<ColumnMeta> columns) {

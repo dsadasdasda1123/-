@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.List;
 import java.util.Set;
 
@@ -55,24 +58,27 @@ public class DatabaseMetadataExtractor {
                                             String schema,
                                             String tableName,
                                             Set<String> primaryKeys) throws SQLException {
-        List<ColumnMeta> columns = new ArrayList<>();
+        Map<String, ColumnMeta> uniqueColumns = new LinkedHashMap<>();
         try (ResultSet rs = metaData.getColumns(null, schema, tableName, "%")) {
             while (rs.next()) {
                 String columnName = rs.getString("COLUMN_NAME");
                 String dbType = rs.getString("TYPE_NAME");
+                String columnKey = columnName == null ? "" : columnName.toUpperCase(Locale.ROOT);
 
-                columns.add(ColumnMeta.builder()
-                        .columnName(columnName)
-                        .fieldName(NamingUtils.toFieldName(columnName))
-                        .dbType(dbType)
-                        .javaType(JavaTypeMapper.map(dbType))
-                        .remarks(rs.getString("REMARKS"))
-                        .nullable(rs.getInt("NULLABLE") == DatabaseMetaData.columnNullable)
-                        .primaryKey(primaryKeys.contains(columnName))
-                        .build());
+                if (!uniqueColumns.containsKey(columnKey)) {
+                    uniqueColumns.put(columnKey, ColumnMeta.builder()
+                            .columnName(columnName)
+                            .fieldName(NamingUtils.toFieldName(columnName))
+                            .dbType(dbType)
+                            .javaType(JavaTypeMapper.map(dbType))
+                            .remarks(rs.getString("REMARKS"))
+                            .nullable(rs.getInt("NULLABLE") == DatabaseMetaData.columnNullable)
+                            .primaryKey(primaryKeys.contains(columnName))
+                            .build());
+                }
             }
         }
-        return columns;
+        return new ArrayList<>(uniqueColumns.values());
     }
 
     private String extractTableRemark(DatabaseMetaData metaData, String schema, String tableName) throws SQLException {
