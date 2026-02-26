@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: auto-entity-generator
+server:
+  port: 8080
