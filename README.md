@@ -52,7 +52,7 @@ mvn spring-boot:run
 - `service`: 生成流程编排与文件写出
 - `controller`: 对外 REST API
 
-当 `generationMode=MYBATIS_PLUS` 时，会额外生成 `resources/mapper/*Mapper.xml`。
+当 `generationMode=MYBATIS_PLUS` 时，会使用 MyBatis-Plus 继承体系：`Mapper extends BaseMapper`、`Service extends IService`、`ServiceImpl extends ServiceImpl`，并额外生成 `resources/mapper/*Mapper.xml`。
 - `util`: 命名转换与类型映射
 
 ## 后续可扩展方向

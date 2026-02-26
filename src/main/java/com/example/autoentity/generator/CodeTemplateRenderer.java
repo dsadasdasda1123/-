@@ -69,15 +69,22 @@ public class CodeTemplateRenderer {
         }
         return "package " + basePackage + ".mapper;\n\n" +
                 "import " + basePackage + ".entity." + tableMeta.getClassName() + ";\n" +
+                "import com.baomidou.mybatisplus.core.mapper.BaseMapper;\n" +
                 "import org.apache.ibatis.annotations.Mapper;\n" +
                 "\n@Mapper\n" +
-                "public interface " + tableMeta.getClassName() + "Mapper {\n" +
-                "    int insert(" + tableMeta.getClassName() + " entity);\n" +
-                "    java.util.List<" + tableMeta.getClassName() + "> findAll();\n" +
+                "public interface " + tableMeta.getClassName() + "Mapper extends BaseMapper<" + tableMeta.getClassName() + "> {\n" +
                 "}\n";
     }
 
-    public String renderService(String basePackage, TableMeta tableMeta) {
+    public String renderService(String basePackage, TableMeta tableMeta, GenerationMode mode) {
+        if (mode == GenerationMode.MYBATIS_PLUS) {
+            return "package " + basePackage + ".service;\n\n" +
+                    "import " + basePackage + ".entity." + tableMeta.getClassName() + ";\n" +
+                    "import com.baomidou.mybatisplus.extension.service.IService;\n\n" +
+                    "public interface " + tableMeta.getClassName() + "Service extends IService<" + tableMeta.getClassName() + "> {\n" +
+                    "}\n";
+        }
+
         return "package " + basePackage + ".service;\n\n" +
                 "import " + basePackage + ".entity." + tableMeta.getClassName() + ";\n" +
                 "import java.util.List;\n\n" +
@@ -117,23 +124,10 @@ public class CodeTemplateRenderer {
                 "import " + basePackage + ".entity." + className + ";\n" +
                 "import " + basePackage + ".mapper." + className + "Mapper;\n" +
                 "import " + basePackage + ".service." + className + "Service;\n" +
-                "import org.springframework.stereotype.Service;\n" +
-                "import java.util.List;\n\n" +
+                "import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\n" +
+                "import org.springframework.stereotype.Service;\n\n" +
                 "@Service\n" +
-                "public class " + className + "ServiceImpl implements " + className + "Service {\n\n" +
-                "    private final " + className + "Mapper mapper;\n\n" +
-                "    public " + className + "ServiceImpl(" + className + "Mapper mapper) {\n" +
-                "        this.mapper = mapper;\n" +
-                "    }\n\n" +
-                "    @Override\n" +
-                "    public " + className + " save(" + className + " entity) {\n" +
-                "        mapper.insert(entity);\n" +
-                "        return entity;\n" +
-                "    }\n\n" +
-                "    @Override\n" +
-                "    public List<" + className + "> findAll() {\n" +
-                "        return mapper.findAll();\n" +
-                "    }\n" +
+                "public class " + className + "ServiceImpl extends ServiceImpl<" + className + "Mapper, " + className + "> implements " + className + "Service {\n" +
                 "}\n";
     }
 
@@ -173,8 +167,33 @@ public class CodeTemplateRenderer {
                 "</mapper>\n";
     }
 
-    public String renderController(String basePackage, TableMeta tableMeta) {
+    public String renderController(String basePackage, TableMeta tableMeta, GenerationMode mode) {
         String varName = Character.toLowerCase(tableMeta.getClassName().charAt(0)) + tableMeta.getClassName().substring(1);
+        if (mode == GenerationMode.MYBATIS_PLUS) {
+            return "package " + basePackage + ".controller;\n\n" +
+                    "import " + basePackage + ".entity." + tableMeta.getClassName() + ";\n" +
+                    "import " + basePackage + ".service." + tableMeta.getClassName() + "Service;\n" +
+                    "import org.springframework.web.bind.annotation.*;\n" +
+                    "import java.util.List;\n\n" +
+                    "@RestController\n" +
+                    "@RequestMapping(\"/api/" + varName + "\")\n" +
+                    "public class " + tableMeta.getClassName() + "Controller {\n\n" +
+                    "    private final " + tableMeta.getClassName() + "Service service;\n\n" +
+                    "    public " + tableMeta.getClassName() + "Controller(" + tableMeta.getClassName() + "Service service) {\n" +
+                    "        this.service = service;\n" +
+                    "    }\n\n" +
+                    "    @PostMapping\n" +
+                    "    public " + tableMeta.getClassName() + " create(@RequestBody " + tableMeta.getClassName() + " " + varName + ") {\n" +
+                    "        service.save(" + varName + ");\n" +
+                    "        return " + varName + ";\n" +
+                    "    }\n\n" +
+                    "    @GetMapping\n" +
+                    "    public List<" + tableMeta.getClassName() + "> list() {\n" +
+                    "        return service.list();\n" +
+                    "    }\n" +
+                    "}\n";
+        }
+
         return "package " + basePackage + ".controller;\n\n" +
                 "import " + basePackage + ".entity." + tableMeta.getClassName() + ";\n" +
                 "import " + basePackage + ".service." + tableMeta.getClassName() + "Service;\n" +

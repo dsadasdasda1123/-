@@ -43,7 +43,7 @@ public class CodeGenerationService {
                     renderer.renderRepository(request.getBasePackage(), tableMeta, request.getGenerationMode())));
 
             generated.add(write(outputRoot.resolve(packagePath).resolve("service").resolve(tableMeta.getClassName() + "Service.java"),
-                    renderer.renderService(request.getBasePackage(), tableMeta)));
+                    renderer.renderService(request.getBasePackage(), tableMeta, request.getGenerationMode())));
 
             generated.add(write(outputRoot.resolve(packagePath).resolve("service").resolve("impl")
                             .resolve(tableMeta.getClassName() + "ServiceImpl.java"),
@@ -56,7 +56,7 @@ public class CodeGenerationService {
             }
 
             generated.add(write(outputRoot.resolve(packagePath).resolve("controller").resolve(tableMeta.getClassName() + "Controller.java"),
-                    renderer.renderController(request.getBasePackage(), tableMeta)));
+                    renderer.renderController(request.getBasePackage(), tableMeta, request.getGenerationMode())));
         }
 
         return CodeGenResponse.builder()
