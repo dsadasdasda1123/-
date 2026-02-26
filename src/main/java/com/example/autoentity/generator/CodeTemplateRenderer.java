@@ -102,11 +102,13 @@ public class CodeTemplateRenderer {
                     "import " + basePackage + ".entity." + className + ";\n" +
                     "import " + basePackage + ".repository." + className + "Repository;\n" +
                     "import " + basePackage + ".service." + className + "Service;\n" +
+                    "import org.springframework.beans.factory.annotation.Autowired;\n" +
                     "import org.springframework.stereotype.Service;\n" +
                     "import java.util.List;\n\n" +
                     "@Service\n" +
                     "public class " + className + "ServiceImpl implements " + className + "Service {\n\n" +
                     "    private final " + className + "Repository repository;\n\n" +
+                    "    @Autowired\n" +
                     "    public " + className + "ServiceImpl(" + className + "Repository repository) {\n" +
                     "        this.repository = repository;\n" +
                     "    }\n\n" +
@@ -175,21 +177,23 @@ public class CodeTemplateRenderer {
             return "package " + basePackage + ".controller;\n\n" +
                     "import " + basePackage + ".entity." + tableMeta.getClassName() + ";\n" +
                     "import " + basePackage + ".service." + tableMeta.getClassName() + "Service;\n" +
+                    "import org.springframework.beans.factory.annotation.Autowired;\n" +
                     "import org.springframework.web.bind.annotation.*;\n" +
                     "import java.util.List;\n\n" +
                     "@RestController\n" +
                     "@RequestMapping(\"/api/" + varName + "\")\n" +
                     "public class " + tableMeta.getClassName() + "Controller {\n\n" +
                     "    private final " + tableMeta.getClassName() + "Service service;\n\n" +
-                    "    public " + tableMeta.getClassName() + "Controller(" + tableMeta.getClassName() + "Service service) {\n" +
+                    "    @Autowired\n" +
+                "    public " + tableMeta.getClassName() + "Controller(" + tableMeta.getClassName() + "Service service) {\n" +
                     "        this.service = service;\n" +
                     "    }\n\n" +
-                    "    @PostMapping\n" +
+                    "    @PostMapping(\"/create\")\n" +
                     "    public " + tableMeta.getClassName() + " create(@RequestBody " + tableMeta.getClassName() + " " + varName + ") {\n" +
                     "        service.save(" + varName + ");\n" +
                     "        return " + varName + ";\n" +
                     "    }\n\n" +
-                    "    @GetMapping\n" +
+                    "    @GetMapping(\"/list\")\n" +
                     "    public List<" + tableMeta.getClassName() + "> list() {\n" +
                     "        return service.list();\n" +
                     "    }\n" +
@@ -199,20 +203,22 @@ public class CodeTemplateRenderer {
         return "package " + basePackage + ".controller;\n\n" +
                 "import " + basePackage + ".entity." + tableMeta.getClassName() + ";\n" +
                 "import " + basePackage + ".service." + tableMeta.getClassName() + "Service;\n" +
+                "import org.springframework.beans.factory.annotation.Autowired;\n" +
                 "import org.springframework.web.bind.annotation.*;\n" +
                 "import java.util.List;\n\n" +
                 "@RestController\n" +
                 "@RequestMapping(\"/api/" + varName + "\")\n" +
                 "public class " + tableMeta.getClassName() + "Controller {\n\n" +
                 "    private final " + tableMeta.getClassName() + "Service service;\n\n" +
+                "    @Autowired\n" +
                 "    public " + tableMeta.getClassName() + "Controller(" + tableMeta.getClassName() + "Service service) {\n" +
                 "        this.service = service;\n" +
                 "    }\n\n" +
-                "    @PostMapping\n" +
+                "    @PostMapping(\"/create\")\n" +
                 "    public " + tableMeta.getClassName() + " create(@RequestBody " + tableMeta.getClassName() + " " + varName + ") {\n" +
                 "        return service.save(" + varName + ");\n" +
                 "    }\n\n" +
-                "    @GetMapping\n" +
+                "    @GetMapping(\"/list\")\n" +
                 "    public List<" + tableMeta.getClassName() + "> list() {\n" +
                 "        return service.findAll();\n" +
                 "    }\n" +
